@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% if title %}
+    <title>{{title}} - microblog</title>
+    {% else %}
+    <title>microblog</title>
+    {% endif %}
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <!--  script src="/static/js/application.js"></script>-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+  	<div class="container">
+    <div class="navbar">
+        <div class="navbar-inner">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">WebRHEV</a>
+          <ul class="nav">
+            <li class="dropdown">
+            	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Database <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="#">Load sos_pgdump.tar file</a></li>
+					<li><a href="#">Something</a></li>
+					<li><a href="#">Something</a></li>
+				</ul>            
+            </li>
+          </ul>
+          <ul class="nav pull-right">
+          	{% if dbVer %}
+          	<li><a href="#">Database Version: {{dbVer}}</a></li>
+          	{% else %}
+          	<li><a href="#">Database Version: Not Loaded</a></li>
+          	{% endif %}
+          </ul>
+        </div>
+    </div>
+    
+    {% block content %}{% endblock %}
+    
+  </body>
+</html>
