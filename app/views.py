@@ -8,6 +8,7 @@ During server init, here is what should happen:
 
  - Create database object
  - Create list of hosts, including their error messages 
+ - Define list of scrollable entities for the left content area
  TODO:
    - Create list of disks
  - Define list of all object UUID and Names to be used in the left area and search field (only using UUID right now)
@@ -23,6 +24,7 @@ database = Database(dbFile)
 testHosts = database.get_hosts()
 for h in testHosts:
 	h.findErrs(database.get_audit_messages())
+
 	
 	
 # Create typeahead list for search
@@ -30,6 +32,15 @@ taHosts = []
 for host in testHosts:
 	hUUID = host.get_uuid()
 	taHosts.append(hUUID)
+	
+	
+# Create the list entries for the (scrollable) left content pane
+scrHosts = []
+for host in testHosts:
+	hName = host.get_name()
+	hUUID = host.get_uuid()
+	hTup = {'name':hName,'uuid':hUUID}
+	scrHosts.append(hTup)
 
 # Not functional yet
 dbVerStr = "I dunno."
@@ -38,14 +49,7 @@ dbVerStr = "I dunno."
 @app.route('/index')
 @app.route('/hosts')
 def index():
-	
-	# Create the list entries for the (scrollable) left content pane
-	scrHosts = []
-	for host in testHosts:
-		hName = host.get_name()
-		hUUID = host.get_uuid()
-		hTup = {'name':hName,'uuid':hUUID}
-		scrHosts.append(hTup)
+
 	
 	# Create list entries for the tabs on the right content pane
 	displayHosts = []
@@ -62,7 +66,8 @@ def index():
 	return render_template("body.html",
 		title = 'Host Table Testing',
 		dbVer = dbVerStr,
-		host_list = displayHosts,
+		host_list = scrHosts,
+		#on init page load, just display information for first host in array
 		hostEnt = displayHosts[0],
 		taHostsList = taHosts)
 	
@@ -73,7 +78,25 @@ def host(ident):
 	'''
 	for h in testHosts:
 		if h.get_uuid() == ident:
-			return render_template()
+			errMessages = [];
+			name  = h.get_name()
+			uuid = h.get_uuid()
+			htype = h.get_host_type()
+			print "Num errs: " + str(len(h.get_err_messages()))
+			for l in h.get_err_messages():
+				print "Message Time: " + l.get_l_time()
+				errMessages.append({'lTime':l.get_l_time(),'lMess':l.get_l_message(),'lSev':l.get_l_sev()})
+			for a in errMessages:
+				print str(a)
+				
+			hostDetails = {'name':name, 'uuid':uuid, 'type':htype,'audit':errMessages}
+			return render_template("body.html",
+							title = 'Host Table Testing',
+							dbVer = dbVerStr,
+							host_list = scrHosts,
+							#on init page load, just display information for first host in array
+							hostEnt = hostDetails,
+							taHostsList = taHosts)
 
 
 

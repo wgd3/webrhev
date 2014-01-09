@@ -16,7 +16,7 @@
 						{% for host in host_list %}
 						<tr>
 							<td class="uuidElement">
-							<h4><a href="#" style="text-decoration: none; color: black;">{{ host.name }}</a></h4>
+							<h4><a href="localhost:5000/host/" style="text-decoration: none; color: black;">{{ host.name }}</a></h4>
 							<p>{{ host.uuid }}</p>
 							</td>
 						</tr>
@@ -56,13 +56,19 @@
 						</tr>
 						</thead>
 						<tbody>
-						{% for error in hostEnt.audit|sort(reverse=True,attribute='lTime') %}
+						{% if hostEnt.audit %}
+							{% for error in hostEnt.audit|sort(reverse=True,attribute='lTime') %}
+								<tr>
+									<td>{{ error.lTime }}</td>
+									<td>{{ error.lMess }}</td>
+									<td>{{ error.lSev }}</td>
+								</tr>
+							{% endfor %}
+						{% else %}
 							<tr>
-								<td>{{ error.lTime }}</td>
-								<td>{{ error.lMess }}</td>
-								<td>{{ error.lSev }}</td>
+								<td><p>No error messages found in audit log</p></td>
 							</tr>
-						{% endfor %}
+						{% endif %}
 						</tbody>
 					</table>
 					</div>
