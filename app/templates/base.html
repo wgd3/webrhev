@@ -10,7 +10,7 @@
     <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
-    <!--  script src="/static/js/application.js"></script>-->
+    <script src="/static/js/application.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
@@ -27,10 +27,27 @@
             <li class="dropdown">
             	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Database <b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="#">Load sos_pgdump.tar file</a></li>
+					<li><a data-toggle="modal" href="#sosloadmodal">Load sos_pgdump.tar file</a></li>
 					<li><a href="#">Something</a></li>
 					<li><a href="#">Something</a></li>
-				</ul>            
+				</ul>       
+				<div class="modal fade" id="sosloadmodal">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				        <h4 class="modal-title">Load new sos_pgdump.tar:</h4>
+				      </div>
+				      <div class="modal-body">
+				        <p>-- Insert upload functionality here--</p>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				        <button type="button" class="btn btn-primary">Upload</button>
+				      </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->     
             </li>
           </ul>
           <ul class="nav pull-right">
@@ -43,7 +60,8 @@
         </div>
     </div>
     
-    {% block content %}{% endblock %}
+    {% block content %}
+    {% endblock %}
     
   </body>
 </html>

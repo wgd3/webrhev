@@ -1,0 +1,30 @@
+{% extends body.html %}
+{% block list %}
+
+
+	<div class="span4">
+		<div class="well" style="min-height: 500px; max-height: 700px;"">
+			<div class="input-group">
+ 					<input type="text" class="span3" data-provide="typeahead" data-source=taHosts placeholder="UUID">
+			</div>
+			
+			<div style="overflow: auto;">
+				<table class="table table-hover">
+					<tbody>
+						{% for host in scrHostsList %}
+						<tr>
+							<td class="uuidElement">
+							<h4><a href="#" style="text-decoration: none; color: black;">{{ host.name }}</a></h4>
+							<p>{{ host.uuid }}</p>
+							</td>
+						</tr>
+						
+						{% endfor %}
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

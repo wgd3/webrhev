@@ -1,8 +1,35 @@
-$('#myTab a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
+$(document).ready(function() {
 
-$('#myTab a[href="#details"]').tab('show') // Select tab by name
-$('#myTab a[href="#errors"]').tab('show') // Select tab by name
-$('#myTab a[href="#messages"]').tab('show') // Select tab by name
+	$('.uuidElement').first().addClass('active');
+	
+	var currentActiveEnt = $('.uuidElement').find('active');
+	
+	//loadContentDetails("No host selected");
+	
+	$('.uuidElement').click(function() {
+		
+		console.log("List element clicked");
+		
+		var newUUID = $(this).children("p").first().text();
+		
+		console.log("Found new UUID: ",newUUID);
+		
+		//loadContentDetails(newUUID);
+	});
+	
+	function loadContentDetails(ident){
+		
+		
+		
+		console.log("Called loadContentDetails function");
+		
+		var contentArea = $(document).find('.content-details');
+		
+		console.log("Defined contentArea: ",contentArea);
+		
+		contentArea.html("<li>{{ entity.name }}</li>");
+		
+		
+	};
+});
+

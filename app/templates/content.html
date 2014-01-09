@@ -1,0 +1,47 @@
+{% extends base.html %}
+
+{% block content %}
+
+<div class="span8" style="min-height: 500px; max-height: 700px; overflow: auto;">
+			
+		<ul class="nav nav-tabs">
+  			<li class="active"><a href="#details" data-toggle="tab">Host Details</a></li>
+ 			<li><a href="#errors" data-toggle="tab">Errors</a></li>
+ 			<li><a href="#messages" data-toggle="tab">Messages</a></li>
+		</ul>
+			
+		<div class="tab-content">
+  				<div class="tab-pane active" id="details">
+  					<ul class="list-group content-details">
+  					
+  					</ul>
+  				</div>
+  				
+				<div class="tab-pane" id="errors">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<td><strong class="text-center">Log Time</strong></td>
+							<td><strong class="text-center">Message</strong></td>
+							<td><strong class="text-center">Severity</strong></td>
+					</tr>
+					</thead>
+					<tbody>
+					{% for host in host_list %}
+						{% for error in host.audit|sort(reverse=True,attribute='lTime') %}
+							<tr>
+								<td>{{ error.lTime }}</td>
+								<td>{{ error.lMess }}</td>
+								<td>{{ error.lSev }}</td>
+							</tr>
+						{% endfor %}
+					{% endfor %}
+					</tbody>
+				</table>
+				</div>
+		
+				<div class="tab-pane" id="messages">...</div>
+		</div>
+</div>
+
+{% endblock %}

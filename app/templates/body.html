@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+
+	<div class="span4">
+		<div class="well" style="min-height: 500px; max-height: 700px;"">
+			<div class="input-group">
+ 					<input type="text" class="span3" data-provide="typeahead" data-source=taHosts placeholder="UUID">
+			</div>
+			
+			<div style="overflow: auto;">
+				<table class="table table-hover">
+					<tbody>
+						{% for host in host_list %}
+						<tr>
+							<td class="uuidElement">
+							<h4><a href="#" style="text-decoration: none; color: black;">{{ host.name }}</a></h4>
+							<p>{{ host.uuid }}</p>
+							</td>
+						</tr>
+						
+						{% endfor %}
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="span8" style="min-height: 400px; max-height: 600px; overflow: auto;">
+				
+			<ul class="nav nav-tabs">
+	  			<li class="active"><a href="#details" data-toggle="tab">Host Details</a></li>
+	 			<li><a href="#errors" data-toggle="tab">Errors</a></li>
+	 			<li><a href="#messages" data-toggle="tab">Messages</a></li>
+			</ul>
+				
+			<div class="tab-content">
+	  				<div class="tab-pane active" id="details">
+	  					<ul class="list-group content-details">
+	  						<li>{{ hostEnt.name }}</li>
+	  						<li>{{ hostEnt.uuid }}</li>
+	  					</ul>
+	  				</div>
+	  				
+					<div class="tab-pane" id="errors">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<td><strong class="text-center">Log Time</strong></td>
+								<td><strong class="text-center">Message</strong></td>
+								<td><strong class="text-center">Severity</strong></td>
+						</tr>
+						</thead>
+						<tbody>
+						{% for error in hostEnt.audit|sort(reverse=True,attribute='lTime') %}
+							<tr>
+								<td>{{ error.lTime }}</td>
+								<td>{{ error.lMess }}</td>
+								<td>{{ error.lSev }}</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+					</div>
+			
+					<div class="tab-pane" id="messages">...</div>
+			</div>
+	</div>
+	
+</div>
+{% endblock %}

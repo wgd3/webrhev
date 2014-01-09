@@ -47,6 +47,7 @@ class Host():
 
 
 	def set_err_messages(self, value):
+		#print "Setting errMessages to following: " + str(value)
 		self.errMessages = value
 
 
@@ -86,17 +87,8 @@ class Host():
 		del self.host_dc_name
 
 
-	def get_spm_status(self):
-		return self.spm_status
-
-
 	def get_release_ver(self):
 		return self.releaseVer
-
-
-	def set_spm_status(self, value):
-		self.spm_status = value
-
 
 	def set_release_ver(self, value):
 		self.releaseVer = value
