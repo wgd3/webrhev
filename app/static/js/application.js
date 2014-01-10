@@ -26,6 +26,8 @@ $(document).ready(function() {
 
 		
 	});
+	
+	$('#progressDiv').hide()
 
 	
 	function loadContentDetails(ident){
