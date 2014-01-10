@@ -1,6 +1,7 @@
 from app import app
 from flask import render_template
 from rhevlcbridge import *
+import json
 
 
 '''
@@ -32,6 +33,8 @@ taHosts = []
 for host in testHosts:
 	hUUID = host.get_uuid()
 	taHosts.append(hUUID)
+#taHostData=json.dumps(taHosts)
+print taHosts
 	
 	
 # Create the list entries for the (scrollable) left content pane

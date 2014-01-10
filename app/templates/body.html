@@ -7,7 +7,26 @@
 	<div class="span4">
 		<div class="well" style="min-height: 500px; max-height: 700px;"">
 			<div class="input-group">
- 					<input type="text" class="span3" data-provide="typeahead" data-source=taHosts placeholder="UUID">
+ 					<input type="text" id="taUUIDSearch" class="span3 twitter-typeahead" data-provide="typeahead" placeholder="UUID">
+ 					<script>
+  						  
+ 	       			  $(document).ready(function() {
+ 	       				 $('#taUUIDSearch').typeahead({
+ 	       					name: 'uuid',
+ 	       					local: [
+ 	       					        {% for uuid in taHostsList %}
+ 	       					        {% if uuid == taHostsList|last %}
+ 	       					        '{{uuid}}'
+ 	       					        {% else %}
+ 	       					        '{{uuid}}',
+ 	       					        {% endif %}
+ 	       					        {% endfor %}
+ 	       					        ]
+ 	       				 
+ 	       				 });
+	       			  });
+					</script>
+
 			</div>
 			
 			<div style="overflow: auto;">
