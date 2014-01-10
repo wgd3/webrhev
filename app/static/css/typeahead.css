@@ -33,12 +33,12 @@
 }
 
 .tt-dropdown-menu {
-	width: 256px;
+	width: 100%;
 	background: white;
 }
 
 .tt-hint {
-    width: 256px;
+    width: 100%;
 }
 
 .tt-suggestion {

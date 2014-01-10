@@ -5,9 +5,9 @@
 <div class="row">
 
 	<div class="span4">
-		<div class="well" style="min-height: 500px; max-height: 700px;"">
+		<div class="well" style="min-height: 400px; max-height: 600px; overflow: auto;">
 			<div class="input-group">
- 					<input type="text" id="taUUIDSearch" class="span3 twitter-typeahead" data-provide="typeahead" placeholder="UUID">
+ 					<input type="text" id="taUUIDSearch" class="twitter-typeahead" data-provide="typeahead" placeholder="UUID" style="width: 100%;">
  					<script>
   						  
  	       			  $(document).ready(function() {
@@ -53,16 +53,26 @@
 				
 			<ul class="nav nav-tabs">
 	  			<li class="active"><a href="#details" data-toggle="tab">Host Details</a></li>
-	 			<li><a href="#errors" data-toggle="tab">Errors</a></li>
+	 			<li><a href="#errors" data-toggle="tab">Errors <span class="label label-warning">{% if hostEnt.audit|length != 0 %}{{ hostEnt.audit|length }}{% endif %}</span></a></li>
 	 			<li><a href="#messages" data-toggle="tab">Messages</a></li>
 			</ul>
 				
 			<div class="tab-content">
 	  				<div class="tab-pane active" id="details">
-	  					<ul class="list-group content-details">
-	  						<li>{{ hostEnt.name }}</li>
-	  						<li>{{ hostEnt.uuid }}</li>
-	  					</ul>
+	  					<table class="table">
+	  						<thead>
+	  						<tr>
+	  							<td><h1 class="text-left"><u>{{ hostEnt.name }}</u></h1></td>
+	  							<td><h2 class="text-right">{{ hostEnt.host_status }}</h2></td>
+	  						</tr>
+	  						</thead>
+	  						<tbody>
+	  							<tr><td>Host Type: </td><td><p>{{ hostEnt.htype }}</p></td></tr>
+	  							<tr><td>UUID: </td><td><p>{{ hostEnt.uuid }}</p></td></tr>
+	  							<tr><td>Data Center: </td><td><p>{{ hostEnt.dc_name }}</p></td></tr>
+	  							<tr><td>SPM Status: </td><td><p>{{ hostEnt.spmStatus }}</p></td></tr>
+	  						</tbody>
+	  					</table>
 	  				</div>
 	  				
 					<div class="tab-pane" id="errors">

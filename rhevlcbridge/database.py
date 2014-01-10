@@ -91,7 +91,8 @@ class Database():
 					 "storage_domain_dat",
 					 "host_dat",
 					 "cluster_dat",
-					 "audit_log"]
+					 "audit_log",
+					 "vds_dynamic"]
 		
 		#print self.dat_files[0]
 		self.dat_files[0] = self.dat_files[0] +","+ self.findDat(" storage_pool ", dbDir+"restore.sql")
@@ -102,6 +103,7 @@ class Database():
 		self.dat_files[3] = self.dat_files[3] +","+self.findDat(" vds_groups ", dbDir+"restore.sql")
 		#print self.dat_files[3]
 		self.dat_files[4] = self.dat_files[4] +","+self.findDat(" audit_log ", dbDir+"restore.sql")
+		self.dat_files[5] = self.dat_files[5] +","+self.findDat(" vds_dynamic ", dbDir+"restore.sql")
 		
 	def findDat(self,table,restFile):
 		'''
@@ -224,6 +226,22 @@ class Database():
 				host_list.append(newHost)
 			
 		openDat.close()
+		
+		# Get host statuses and append to current csv lines
+		dat_file = self.dbDir+self.dat_files[5].split(",")[1]
+		openDat = open(dat_file,"r")
+		
+		lines = openDat.readlines()
+		
+		for h in host_list:
+			# At this point host_list is a list/collection of 'Host' objects, no longer a csv line
+			curHost = h.get_uuid()
+			for l in lines:
+				# Validate that the uuid of the current host matches the uuid in the current line
+				if curHost in l:
+					# Set host status via host method
+					h.set_host_status(l.split("\t")[1])
+		
 		return host_list
 	
 	

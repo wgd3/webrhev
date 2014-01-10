@@ -19,6 +19,7 @@ class Host():
 	spm_status = ""
 	releaseVer = "unknown"
 	errMessages = []
+	host_status = ""
 	
 	def __init__(self, csvList):
 		'''
@@ -40,7 +41,25 @@ class Host():
 				self.set_host_type("RHEV-H")
 			self.host_dc_name = 'unknown'
 			self.errMessages = []
-				
+			self.host_status = self.discoverStatus(csvList)
+
+	def get_host_status(self):
+		return self.__host_status
+
+
+	def set_host_status(self, value):
+		self.__host_status = value
+
+
+	def del_host_status(self):
+		del self.__host_status
+
+			
+	def discoverStatus(self,csvLine):
+		# In the database class we append the host status to the end of the csv line being fed when a host is created
+		# as such, we should get the final list element from the csv line and store as status
+		lastElement = len(csvLine)-1
+		self.host_status = csvLine[lastElement]
 
 	def get_err_messages(self):
 		return self.errMessages
@@ -184,6 +203,7 @@ class Host():
 	host_dc_name = property(get_host_dc_name, set_host_dc_name, del_host_dc_name, "host_dc_name's docstring")
 	_spm_status = property(get_spm_status, set_spm_status, None, None)
 	errMessages = property(get_err_messages, set_err_messages, del_err_messages, "errMessages's docstring")
+	host_status = property(get_host_status, set_host_status, del_host_status, "host_status's docstring")
 
 		
 	
